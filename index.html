@@ -158,13 +158,12 @@
     }
     .bookmark-btn-main.active { border: 1px solid #FFD700; font-weight: bold; color: #fff; }
     .bookmark-btn-main:active { transform: scale(0.98); }
-
-    /* AI 설정 버튼: 테두리와 배경을 제거하여 글자만 보이도록 수정 */
+/* AI 설정 버튼: 테두리와 배경을 제거하여 글자만 보이도록 수정 */
     .ai-setting-trigger-btn {
         position: absolute; bottom: -2px; right: 1px;
-        background: transparent;
-        color: #FFD700; 
-        border: none; 
+        background: transparent; /* 배경 제거 */
+        color: #FFD700; /* 금색 텍스트 유지 */
+        border: none; /* 테두리 제거 */
         padding: 4px; font-size: 11px; font-weight: bold;
         cursor: pointer; z-index: 100; font-family: 'Noto Sans KR', sans-serif;
         transition: 0.2s;
@@ -210,8 +209,10 @@
     body.dark-mode .day-num { color: var(--gold-acc); }
     .day-range { font-size: 0.8rem; opacity: 0.9; word-break: keep-all; line-height: 1.3; margin-bottom: 2px; }
     
+    /* AI 활성화 시 스케줄 박스 하단 여백 추가 */
     .day-box.has-ai { padding-bottom: 22px; }
 
+    /* 일자별 AI 요약 버튼 */
     .schedule-ai-btn {
         position: absolute; bottom: 4px; right: 4px; 
         background: #F0F4F8; color: #1565C0; border: 1px solid #90CAF9;
@@ -219,7 +220,9 @@
         cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,0.1); transition: 0.2s;
         font-family: 'Noto Sans KR', sans-serif; white-space: nowrap;
     }
-    body.dark-mode .schedule-ai-btn { background: #1E2A38; color: #64B5F6; border-color: #2C3E50; }
+    body.dark-mode .schedule-ai-btn {
+        background: #1E2A38; color: #64B5F6; border-color: #2C3E50;
+    }
     .schedule-ai-btn:active { transform: scale(0.95); background: #E3F2FD; }
 
     @keyframes pulseTarget {
@@ -315,7 +318,7 @@
     #btn-prev-chapter, #btn-next-chapter { background-color: #4A5C6A; color: #fff; border-color: #2C3E50; }
     #btn-prev-chapter:active, #btn-next-chapter:active { background-color: #2C3E50; }
     
-    /* 공통 모달 UI */
+    /* 검색 / AI 설정 모달 공통 UI */
     .modal-overlay {
         position: fixed; top: 0; left: 0; right: 0; bottom: 0;
         background: rgba(0,0,0,0.7); z-index: 3000;
@@ -333,6 +336,7 @@
     .modal-box h3 { margin: 0 0 12px 0; color: var(--header-bg); font-weight: 800; }
     body.dark-mode .modal-box h3 { color: var(--gold-acc); }
 
+    /* AI 설정 모달 특화 UI */
     .ai-checkbox-group {
         display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; text-align: left;
         background: rgba(128,128,128,0.05); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);
@@ -342,7 +346,8 @@
         font-family: 'Noto Sans KR', sans-serif;
     }
     .ai-label input[type="checkbox"] {
-        width: 18px; height: 18px; margin-right: 8px; cursor: pointer; accent-color: var(--gold-acc);
+        width: 18px; height: 18px; margin-right: 8px; cursor: pointer;
+        accent-color: var(--gold-acc);
     }
     .ai-desc { font-size: 11px; color: #666; margin-left: 26px; margin-top: 2px; }
     body.dark-mode .ai-desc { color: #aaa; }
@@ -355,6 +360,7 @@
     }
     .api-key-input:focus { border-color: var(--gold-acc); }
     
+    /* 검색 모달 내 옵션들 */
     .search-selectors { display: flex; gap: 8px; margin-bottom: 10px; }
     .search-select-btn {
         flex: 1; padding: 12px 2px; font-size: 15px; border: 2px solid var(--border-color);
@@ -394,12 +400,39 @@
     .keyword-btn:active { background: #222; }
     body.dark-mode .keyword-btn { background: #333; }
 
-    #ai-result-modal .modal-box { width: 92%; max-width: 600px; height: 75vh; max-height: 800px; }
-    #ai-result-title { margin: 0 0 10px 0; line-height: 1.3; max-height: 60px; word-break: keep-all; overflow: hidden; color: var(--header-bg); font-weight: 800; display: flex; align-items: center; justify-content: center; transition: font-size 0.2s; }
-    body.dark-mode #ai-result-title { color: var(--gold-acc); }
-    #ai-result-content { flex: 1; text-align: left; padding: 0 18px; background: var(--main-bg); color: var(--text-color); border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 15px; font-size: 16px; line-height: 1.7; word-break: keep-all; overflow-y: auto; position: relative; }
+    /* AI 요약 결과창 전용 확장 스타일 (위아래 75vh로 시원하게 확대) */
+    #ai-result-modal .modal-box {
+        width: 92%; max-width: 600px;
+        height: 75vh; max-height: 800px; 
+    }
     
-    .loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--gold-dark); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto; }
+    /* 긴 스케줄 제목을 위한 타이틀 영역 스타일 (자동 크기 조절 대상) */
+    #ai-result-title {
+        margin: 0 0 10px 0;
+        line-height: 1.3;
+        max-height: 60px; /* 창을 넘지 않도록 제한 */
+        word-break: keep-all;
+        overflow: hidden;
+        color: var(--header-bg);
+        font-weight: 800;
+        display: flex; align-items: center; justify-content: center;
+        /* 크기 조절 시 부드러운 애니메이션 효과 */
+        transition: font-size 0.2s;
+    }
+    body.dark-mode #ai-result-title { color: var(--gold-acc); }
+
+    /* AI 본문 영역 (자동 크기 해제, 16px 고정 및 스크롤) */
+    #ai-result-content {
+        flex: 1; 
+        text-align: left; padding: 0 18px; background: var(--main-bg); color: var(--text-color);
+        border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 15px;
+        font-size: 16px; line-height: 1.7; word-break: keep-all; overflow-y: auto;
+        position: relative;
+    }
+    .loader {
+        border: 4px solid #f3f3f3; border-top: 4px solid var(--gold-dark);
+        border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto;
+    }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
     #settings-panel {
@@ -451,6 +484,14 @@
         animation: flyAndScatter 2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
     }
 
+    @keyframes flyAndScatter {
+        0% { top: var(--start-y); left: var(--start-x); transform: translate(-50%, -50%) scale(0.3); opacity: 0; letter-spacing: normal; }
+        15% { top: var(--start-y); left: var(--start-x); transform: translate(-50%, -100%) scale(1); opacity: 1; }
+        45% { top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1.4); opacity: 1; filter: blur(0px); letter-spacing: normal; }
+        75% { top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1.4); opacity: 1; filter: blur(0px); letter-spacing: normal; }
+        100% { top: 40%; left: 50%; transform: translate(-50%, -50%) scale(2); opacity: 0; filter: blur(5px); letter-spacing: 4px; }
+    }
+
     @media screen and (max-width: 380px) {
         .tab-container { gap: 4px; padding: 0 5px; }
         .tab-btn { padding: 8px 0; font-size: 11px; }
@@ -471,43 +512,6 @@
 </head>
 <body>
 
-<script>
-/* ================= 인앱 브라우저 탈출 시스템 (유지) ================= */
-(function checkInAppBrowser() {
-    var userAgent = navigator.userAgent.toLowerCase();
-    var targetUrl = location.href;
-    var isKakao = userAgent.indexOf('kakaotalk') > -1;
-    var isNaver = userAgent.indexOf('naver') > -1;
-    var isLine = userAgent.indexOf('line') > -1;
-    var isDaum = userAgent.indexOf('daum') > -1;
-    var isFacebook = userAgent.indexOf('facebook') > -1 || userAgent.indexOf('fb_iab') > -1 || userAgent.indexOf('instagram') > -1;
-
-    if (isKakao) {
-        location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(targetUrl);
-        showInAppBlocker();
-    } else if (isNaver || isLine || isDaum || isFacebook) {
-        showInAppBlocker();
-    }
-
-    function showInAppBlocker() {
-        document.write(`
-            <div style="position:fixed; top:0; left:0; width:100%; height:100%; background:#121212; z-index:999999; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:25px; text-align:center; font-family:'Noto Sans KR', sans-serif;">
-                <h1 style="color:#FF512F; margin-bottom:15px;">⚠️ 접속 브라우저 변경 필요</h1>
-                <p style="font-size:16px; line-height:1.6; color:#E0E0E0; margin-bottom:30px;">
-                    현재 접속하신 <b>카카오톡, 네이버 등의 앱 내장 브라우저</b>에서는 기기 보안상 오디오 재생이 완벽히 차단됩니다.<br><br>정상적인 음성 재생을 위해 반드시 외부 브라우저를 이용해주세요.
-                </p>
-                <div style="background:#2C2C2C; color:#D4AF37; padding:20px; border-radius:12px; font-weight:bold; width:100%; max-width:400px; box-shadow:0 4px 15px rgba(0,0,0,0.5);">
-                    화면 우측 하단 (또는 상단)의 [ ⋮ ] 메뉴 버튼을 눌러<br><br>
-                    <span style="font-size:20px; color:#FFF; background:#3E1E1E; padding:5px 10px; border-radius:6px; border:1px solid #D4AF37;">[ 다른 브라우저로 열기 ]</span><br><br>
-                    를 선택해주세요.
-                </div>
-                <button onclick="this.parentElement.style.display='none'" style="margin-top:40px; padding:12px 30px; background:#444; color:#fff; border:none; border-radius:25px; font-size:14px; cursor:pointer;">무시하고 텍스트만 보기 (소리 불가)</button>
-            </div>
-        `);
-    }
-})();
-</script>
-
 <div id="main-view">
     <div id="top-fixed-area" class="top-fixed-area">
         <div class="main-header">
@@ -518,7 +522,7 @@
             <div class="meteor-shower">
                 <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
             </div>
-            <span class="version-label">Ver 3.8</span>
+            <span class="version-label">Ver 3.6</span>
             <input type="text" id="user-name" class="user-name-input" placeholder="이름 입력: 000" oninput="saveName(this.value)">
             
             <div id="progress-text" class="progress-text">진도율: 0% (0/0)</div>
@@ -910,7 +914,35 @@ let voices = [];
 let currentChunks = [];
 let chunkIndex = 0;
 
-let audioPlayer = new Audio(); // 심플하게 단일 오디오 객체만 유지
+const audioPlayer = new Audio();
+
+// ---- [오디오 권한 해제를 위한 로직 추가 시작] ----
+let audioUnlocked = false;
+
+function unlockAudioForTTS() {
+    if (audioUnlocked) return;
+    
+    // 무음 1샘플짜리 base64 오디오를 재생하여 오디오 컨텍스트를 활성화
+    audioPlayer.src = 'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
+    const playPromise = audioPlayer.play();
+    
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
+            audioPlayer.pause();
+            audioUnlocked = true;
+            // 권한 획득 성공 시 리스너 제거
+            document.removeEventListener('touchstart', unlockAudioForTTS);
+            document.removeEventListener('click', unlockAudioForTTS);
+        }).catch(err => {
+            console.log("Audio unlock failed: ", err);
+        });
+    }
+}
+
+// 화면 아무 곳이나 최초 클릭/터치할 때 오디오 잠금을 풉니다.
+document.addEventListener('touchstart', unlockAudioForTTS, { passive: true });
+document.addEventListener('click', unlockAudioForTTS, { passive: true });
+// ---- [오디오 권한 해제를 위한 로직 추가 끝] ----
 
 const getStorage = () => {
     const data = localStorage.getItem('bibleScheduleApp');
@@ -958,7 +990,6 @@ function init() {
     
     if(saved.username) document.getElementById('user-name').value = saved.username;
 
-    // 네이티브 목소리 목록만 조용히 가져오기
     window.speechSynthesis.onvoiceschanged = () => { voices = window.speechSynthesis.getVoices(); };
     voices = window.speechSynthesis.getVoices();
     
@@ -1017,7 +1048,7 @@ function renderSchedule() {
         box.onclick = () => openReader(idx, text);
 
         if (aiMode === 'manual' || aiMode === 'auto') {
-            box.classList.add('has-ai'); 
+            box.classList.add('has-ai'); // AI 모드 활성화 시 클래스 추가
             const aiBtn = document.createElement('button');
             aiBtn.className = 'schedule-ai-btn';
             aiBtn.innerText = '✨️요약';
@@ -1124,6 +1155,7 @@ function executeAiSummary(scheduleText, mode) {
         
         document.getElementById('ai-result-title').innerText = `📖 ${scheduleText} 요약`;
         
+        // 첫 줄 고정(스트리밍 대비 레이아웃) 구조로 삽입
         document.getElementById('ai-result-content').innerHTML = `
             <div id="ai-fixed-header" style="position: sticky; top: 0; background: var(--main-bg); z-index: 10; padding: 10px 0; border-bottom: 1px dashed var(--border-color); margin-bottom: 10px; color: var(--text-color); font-weight: bold; display: flex; align-items: center;">
                 <div class="loader-small" style="width: 16px; height: 16px; border: 3px solid rgba(128,128,128,0.3); border-top: 3px solid var(--gold-acc); border-radius: 50%; animation: spin 1s linear infinite; margin-right: 8px;"></div>
@@ -1146,8 +1178,10 @@ async function callGeminiApi(prompt, apiKey) {
     let lastError = '';
     const statusText = document.getElementById('ai-status-text');
     const streamDiv = document.getElementById('ai-stream-text');
+    const contentContainer = document.getElementById('ai-result-content');
 
     for (const model of modelsToTry) {
+        // 스트리밍을 위한 API URL 변경
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse&key=${apiKey}`;
         try {
             statusText.innerText = `요약 중...`;
@@ -1167,6 +1201,7 @@ async function callGeminiApi(prompt, apiKey) {
                 }
             }
 
+            // SSE 스트리밍 데이터 읽기 처리
             const reader = response.body.getReader();
             const decoder = new TextDecoder("utf-8");
             let streamedText = "";
@@ -1189,6 +1224,9 @@ async function callGeminiApi(prompt, apiKey) {
                             if (data.candidates && data.candidates[0].content && data.candidates[0].content.parts) {
                                 streamedText += data.candidates[0].content.parts[0].text;
                                 streamDiv.innerHTML = streamedText.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
+                                
+                                // 자동 스크롤 제거 처리 (위에서부터 읽기 편하게)
+                                // contentContainer.scrollTop = contentContainer.scrollHeight;
                             }
                         } catch (e) {
                             console.error('JSON Parse error:', e);
@@ -1197,6 +1235,7 @@ async function callGeminiApi(prompt, apiKey) {
                 }
             }
             
+            // 통신 완료 처리
             const loaderEl = document.querySelector('#ai-fixed-header .loader-small');
             if(loaderEl) loaderEl.style.display = 'none';
             statusText.innerText = '✅ 요약 완료';
@@ -1206,6 +1245,7 @@ async function callGeminiApi(prompt, apiKey) {
         }
     }
     
+    // 최종 실패 시 처리
     const loaderEl = document.querySelector('#ai-fixed-header .loader-small');
     if(loaderEl) loaderEl.style.display = 'none';
     statusText.innerHTML = `<span style="color:#C0392B;">오류 발생</span>`;
@@ -1685,29 +1725,15 @@ function toggleBgTts() {
 }
 
 /* ================= TTS (읽어주기) 메인 로직 ================= */
-// 핵심 변경 사항: 사용자가 명시적으로 클릭한 이 순간(콜스택 내부)에서만 재생을 지시하여 충돌(AbortError) 방지
-function toggleTTS() { 
-    // 네이티브 목소리가 준비 안 됐으면 조용히 준비 (이 작업은 에러를 내지 않음)
-    if (voices.length === 0) {
-        let u = new SpeechSynthesisUtterance('');
-        u.volume = 0;
-        window.speechSynthesis.speak(u);
-        voices = window.speechSynthesis.getVoices();
-    }
-
-    if (ttsActive) stopTTS(); 
-    else startTTS(); 
-}
+function toggleTTS() { if (ttsActive) stopTTS(); else startTTS(); }
 
 function startTTS() {
     const verses = document.querySelectorAll('#reader-content .verse');
     if(verses.length === 0) { showToast("읽을 내용이 없습니다."); return; }
 
-    ttsActive = true; 
-    document.getElementById('btn-tts').innerText = "⏹ 멈춤";
+    ttsActive = true; document.getElementById('btn-tts').innerText = "⏹ 멈춤";
     
-    let startIndex = 0; 
-    let isStartedFromSelection = false;
+    let startIndex = 0; let isStartedFromSelection = false;
 
     if (selectedVerseElement) {
         for (let i = 0; i < verses.length; i++) {
@@ -1792,33 +1818,11 @@ function playNextChunkStreaming() {
     if (isBracket) { text = text.replace(/[<>]/g, ''); }
 
     const googleTtsUrl = `https://translate.googleapis.com/translate_tts?ie=UTF-8&tl=ko-KR&client=gtx&q=${encodeURIComponent(text)}`;
-    
-    audioPlayer.pause(); // 이전 재생 완벽히 멈춤
     audioPlayer.src = googleTtsUrl;
-    audioPlayer.load(); // iOS 등 모바일 브라우저 필수 장치
     
     let userRate = getStorage().settings.rate || 1.0;
     audioPlayer.playbackRate = userRate * 1.3; 
     
-    const playPromise = audioPlayer.play();
-    if (playPromise !== undefined) {
-        playPromise.then(() => {
-            // 재생 성공!
-        }).catch(e => {
-            // 변경점: 충돌(AbortError) 시 무시하고 진행되도록 수정
-            if (e.name === 'AbortError') {
-                console.log("새 오디오 재생으로 이전 오디오가 취소됨 (정상적인 동작입니다)");
-            } else if (e.name === 'NotAllowedError') {
-                stopTTS();
-                showToast("브라우저가 오디오 재생을 차단했습니다. 화면을 한 번 터치한 후 다시 시도해주세요.");
-            } else {
-                // 그 외 네트워크 에러 등은 다음 구절로 넘어감
-                chunkIndex++;
-                setTimeout(playNextChunkStreaming, 500);
-            }
-        });
-    }
-
     audioPlayer.onended = () => {
         if (!ttsActive) return;
         chunkIndex++;
@@ -1829,6 +1833,8 @@ function playNextChunkStreaming() {
         if (!ttsActive) return;
         chunkIndex++; setTimeout(playNextChunkStreaming, 500); 
     };
+
+    audioPlayer.play().catch(e => { stopTTS(); showToast("오디오 권한 필요. 화면을 터치해주세요."); });
 }
 
 function playNextVerse() {
@@ -1864,11 +1870,7 @@ function playNextVerse() {
 
     speakText = speakText.replace(/\([^)]*\)/g, '').trim();
     currentChunks = speakText.split(/(<[^>]+>)/).filter(t => t.trim() !== '');
-    chunkIndex = 0; 
-    
-    if (voices.length === 0) voices = window.speechSynthesis.getVoices();
-    
-    playNextChunkNative();
+    chunkIndex = 0; playNextChunkNative();
 }
 
 function playNextChunkNative() {
